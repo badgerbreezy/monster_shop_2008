@@ -3,8 +3,8 @@ require 'rails_helper'
 describe BulkDiscount do
   describe 'Validations' do
     it { should validate_presence_of :description }
-    it { should validate_presence_of :minimum_quantity }
-    it { should validate_presence_of :discount_percent }
+    it { should validate_numericality_of(:minimum_quantity).is_greater_than(0) }
+    it { should validate_inclusion_of(:discount_percent).in_range(1..100).with_message("must be within 1 and 100 percent") }
   end
 
   describe 'Relationships' do
