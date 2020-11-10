@@ -10,8 +10,13 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   def create
     @bulk_discount = BulkDiscount.new(discount_params)
     @bulk_discount.merchant = current_user.merchant
-    @bulk_discount.save!
-    redirect_to '/merchant/bulk_discounts'
+    if @bulk_discount.save
+      flash[:notice] = "Discount Created!"
+      redirect_to '/merchant/bulk_discounts'
+    else
+      flash[:error] = @bulk_discount.errors.full_messages.to_sentence
+      redirect_to '/merchant/bulk_discounts/new'
+    end
   end
 
   def edit
