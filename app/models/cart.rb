@@ -44,5 +44,4 @@ class Cart
   def decrement_item(item)
     @contents[item.id.to_s] -= 1
   end
-
 end
