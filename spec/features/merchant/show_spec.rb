@@ -71,7 +71,7 @@ describe "As a merchant employee, when I visit '/merchant'" do
     )
     @bulk_discount_1 = BulkDiscount.create!(
       description: "5% on 20+",
-      discount_percent: 0.05,
+      discount_percent: 5,
       minimum_quantity: 20,
       merchant: @dog_shop
     )
