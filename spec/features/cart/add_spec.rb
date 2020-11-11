@@ -88,7 +88,6 @@ RSpec.describe 'Cart creation' do
     it "I am notified of the applied discount appropriately" do
       visit "/items/#{@paper.id}"
       click_on "Add To Cart"
-      visit "/items/#{@pencil.id}"
       visit "/cart"
 
       within ".quantity" do

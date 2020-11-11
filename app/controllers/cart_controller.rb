@@ -36,6 +36,7 @@ class CartController < ApplicationController
     else
       flash[:error] = "Cannot add item"
     end
+    binding.pry
     redirect_to '/cart'
   end
 
