@@ -39,9 +39,10 @@ car = legos_shop.items.create(name: "Car", description: "fast and loud", price: 
 scuba_steve = scuba_shop.items.create(name: "Bathtub Buddy", description: "He can dive deep", price: 2000, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQpqzsLgDQ5egPZpF-M1aNcgkK9WZiB5CVv8w&usqp=CAU", inventory: 101)
 goggles = scuba_shop.items.create(name: "Goggles", description: "Cheap and not worth the buy", price: 3, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSl4pO86Z6zPk530M4bmZHxqmgPZcO-nc8qCw&usqp=CAU", inventory: 150)
 
-user = User.create(name: "John Doe", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "funbucket13@gmail.com", password: "test", role: 0)
-user = bike_shop.users.create(name: "John", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "merchant@merchant.com", password: "test", role: 1)
-user = User.create(name: "John", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "admin@admin.com", password: "test", role: 2)
+user_1 = User.create(name: "John Doe", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "funbucket13@gmail.com", password: "test", role: 0)
+user_2 = bike_shop.users.create(name: "John", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "bike_shop@merchant.com", password: "test", role: 1)
+user_3 = pokemon_shop.users.create(name: "Jane", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "pokemon@merchant.com", password: "test", role: 1)
+user_4 = User.create(name: "John", address: "123 Main Street", city: "Anytown", state: "Anystate", zip: 123456, email: "admin@admin.com", password: "test", role: 2)
 
 order_1 = user.orders.create!(
   name: 'Ogirdor',
