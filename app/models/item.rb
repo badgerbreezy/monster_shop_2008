@@ -44,5 +44,4 @@ class Item <ApplicationRecord
   def quantity_sold
     item_orders.sum(:quantity)
   end
-
 end
