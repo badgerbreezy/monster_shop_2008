@@ -55,11 +55,31 @@ describe 'As a merchant user editing an existing bulk discount' do
     fill_in :minimum_quantity, with: 50
     click_on "Update Bulk Discount"
     expect(current_path).to eq('/merchant/bulk_discounts')
+    expect(page).to have_content('Discount Updated!')
 
     within "#discount-#{@bulk_discount_1.id}" do
       expect(page).to have_content("20% on 50+")
       expect(page).to have_content("Percentage: 20%")
       expect(page).to have_content(50)
     end
+  end
+
+  it "I cannot update a discount with negative or blank values" do
+    visit "/merchant/bulk_discounts"
+
+    within "#discount-#{@bulk_discount_1.id}" do
+      click_on 'Edit Bulk Discount'
+      expect(current_path).to eq("/merchant/bulk_discounts/#{@bulk_discount_1.id}/edit")
+    end
+
+    fill_in :description, with: ""
+    fill_in :discount_percent, with: -5
+    fill_in :minimum_quantity, with: -10
+    click_on "Update Bulk Discount"
+    expect(current_path).to eq("/merchant/bulk_discounts/#{@bulk_discount_1.id}/edit")
+
+    expect(page).to have_content("Description can't be blank")
+    expect(page).to have_content("Discount percent must be within 1 and 100 percent")
+    expect(page).to have_content("Minimum quantity must be greater than 0")
   end
 end
