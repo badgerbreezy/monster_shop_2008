@@ -91,7 +91,7 @@ RSpec.describe 'Cart creation' do
       visit "/cart"
 
       within ".quantity" do
-        19.times do
+        21.times do
           click_button "+"
         end
       end
@@ -120,7 +120,7 @@ RSpec.describe 'Cart creation' do
 
       within ".quantity" do
         expect(page).to have_button("-")
-        6.times do
+        10.times do
           click_button "-"
         end
       end
