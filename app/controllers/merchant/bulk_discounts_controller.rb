@@ -8,10 +8,15 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   end
 
   def create
-    @bulk_discount = BulkDiscount.new(discount_params)
-    @bulk_discount.merchant = current_user.merchant
-    @bulk_discount.save!
-    redirect_to '/merchant/bulk_discounts'
+    @merchant = current_user.merchant
+    @bulk_discount = @merchant.bulk_discounts.new(discount_params)
+    if @bulk_discount.save
+      flash[:notice] = "Discount Created!"
+      redirect_to '/merchant/bulk_discounts'
+    else
+      flash[:error] = @bulk_discount.errors.full_messages.to_sentence
+      redirect_to '/merchant/bulk_discounts/new'
+    end
   end
 
   def edit
@@ -19,9 +24,15 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   end
 
   def update
-    @bulk_discount = BulkDiscount.find(params[:id])
-    @bulk_discount.update(discount_params)
-    redirect_to '/merchant/bulk_discounts'
+    @merchant = current_user.merchant
+    @bulk_discount = @merchant.bulk_discounts.find(params[:id])
+    if @bulk_discount.update(discount_params)
+      flash[:notice] = "Discount Updated!"
+      redirect_to '/merchant/bulk_discounts'
+    else
+      flash[:error] = @bulk_discount.errors.full_messages.to_sentence
+      redirect_to "/merchant/bulk_discounts/#{@bulk_discount.id}/edit"
+    end
   end
 
   def destroy

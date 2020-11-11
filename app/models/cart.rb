@@ -45,4 +45,7 @@ class Cart
     @contents[item.id.to_s] -= 1
   end
 
+  def quantity(item)
+    @contents[item.id.to_s]
+  end
 end

@@ -26,6 +26,11 @@ class CartController < ApplicationController
 
   def increment
     item = Item.find(params[:item_id])
+    quantity = cart.quantity(item)
+    discount = BulkDiscount.apply_discount(quantity)
+    if discount
+      flash[:notice] = "#{discount.description} for #{item.name} applied!"
+    end
     if cart.items[item] < item.inventory
       cart.add_item(item.id.to_s)
     else
@@ -36,6 +41,11 @@ class CartController < ApplicationController
 
   def decrement
     item = Item.find(params[:item_id])
+    quantity = cart.quantity(item)
+    discount = BulkDiscount.apply_discount(quantity)
+    if discount
+      flash[:notice] = "#{discount.description} for #{item.name} applied!"
+    end
     if cart.items[item] > 0
       cart.decrement_item(item)
     else

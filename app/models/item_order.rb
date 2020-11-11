@@ -6,11 +6,10 @@ class ItemOrder <ApplicationRecord
 
   def subtotal
     subtotal = price * quantity
-
     discounts = self.item.merchant.bulk_discounts
     discount =  discounts.apply_discount(quantity)
     if discount != nil
-      discount.calculate_discount(subtotal)
+      discount.calculate_discount(subtotal) 
     else
       subtotal
     end

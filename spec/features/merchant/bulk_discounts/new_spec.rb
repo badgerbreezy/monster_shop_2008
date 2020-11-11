@@ -60,9 +60,44 @@ describe 'As a merchant user creating a new bulk discount' do
 
     click_on 'Create Bulk Discount'
     expect(current_path).to eq('/merchant/bulk_discounts')
-
+    expect(page).to have_content("Discount Created!")
     expect(page).to have_content("15% on 50+")
     expect(page).to have_content("Percentage: 15%")
     expect(page).to have_content("Minimum Quantity: 50")
+  end
+
+  it "I cannot create a discount with negative or blank values" do
+    visit "/merchant/bulk_discounts"
+
+    click_on 'Create a New Discount'
+
+    fill_in :description, with: ""
+    fill_in :discount_percent, with: 15
+    fill_in :minimum_quantity, with: 50
+
+    click_on 'Create Bulk Discount'
+    expect(current_path).to eq('/merchant/bulk_discounts/new')
+
+    expect(page).to have_content("Description can't be blank")
+
+    fill_in :description, with: ""
+    fill_in :discount_percent, with: ""
+    fill_in :minimum_quantity, with: ""
+    click_on 'Create Bulk Discount'
+    expect(current_path).to eq('/merchant/bulk_discounts/new')
+
+    expect(page).to have_content("Description can't be blank")
+    expect(page).to have_content("must be within 1 and 100 percent")
+    expect(page).to have_content("Minimum quantity is not a number")
+
+    fill_in :description, with: "15% on 50+"
+    fill_in :discount_percent, with: -15
+    fill_in :minimum_quantity, with: 0
+
+    click_on 'Create Bulk Discount'
+    expect(current_path).to eq('/merchant/bulk_discounts/new')
+
+    expect(page).to have_content("Discount percent must be within 1 and 100 percent")
+    expect(page).to have_content("Minimum quantity must be greater than 0")
   end
 end

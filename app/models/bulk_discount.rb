@@ -1,5 +1,7 @@
 class BulkDiscount < ApplicationRecord
-  validates_presence_of :description, :discount_percent, :minimum_quantity
+  validates_presence_of :description
+  validates_inclusion_of :discount_percent, in: 1..100, message: "must be within 1 and 100 percent"
+  validates :minimum_quantity, numericality: { greater_than: 0 }
 
   belongs_to :merchant
 
