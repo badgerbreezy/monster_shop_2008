@@ -11,7 +11,7 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
     @merchant = current_user.merchant
     @bulk_discount = @merchant.bulk_discounts.new(discount_params)
     if @bulk_discount.valid?
-      @bulk_discount.save!
+      @bulk_discount.save
       flash[:notice] = "Discount Created!"
       redirect_to '/merchant/bulk_discounts'
     else
