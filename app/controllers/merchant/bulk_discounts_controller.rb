@@ -27,7 +27,8 @@ class Merchant::BulkDiscountsController < Merchant::BaseController
   def update
     @merchant = current_user.merchant
     @bulk_discount = @merchant.bulk_discounts.find(params[:id])
-    if @bulk_discount.update(discount_params)
+    if @bulk_discount.valid?
+      @bulk_discount.update(discount_params)
       flash[:notice] = "Discount Updated!"
       redirect_to '/merchant/bulk_discounts'
     else
